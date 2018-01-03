@@ -1,21 +1,39 @@
-let user = {
+const app = {
+  title: 'Indecision App',
+  subtitle: 'Just a tutorial',
+  options: ['One', 'Two']
+}
+
+const template = (
+  <div>
+    <h1>{app.title}</h1>
+    { app.subtitle && <p>app.subtitle</p> }
+    <p>{ app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
+    <ol>
+      <li>{app.options[0]}</li>
+      <li>{app.options[1]}</li>
+    </ol>
+  </div>
+)
+
+const user = {
   name: 'Ulisses',
   age: 23,
   location: 'Porto União'
 }
 
 function getLocation (location) {
-  return location || 'Unknown'
+  return <p>Location: {location}</p> || null
 }
 
-let templateTwo = (
+const templateTwo = (
   <div>
-    <h1>{ user.name }</h1>
-    <p>Age: { user.age }</p>
-    <p>Location: { getLocation(user.location) }</p>
+    <h1>{ user.name ? user.name : 'Anonymous' }</h1>
+    { (user.age && user.age >= 18) && <p>Age: {user.age}</p> }
+    { getLocation(user.location) }
   </div>
 )
 
-let appRoot = document.getElementById('app')
+const appRoot = document.getElementById('app')
 
-ReactDOM.render(templateTwo, appRoot)
+ReactDOM.render(template, appRoot)
