@@ -1,8 +1,19 @@
+const Obj = {
+  name: 'Tester',
+  getName () {
+    return this.name
+  }
+}
+
+const getName = obj.getName
+
+console.log(getName())
+
 class IndecisionApp extends React.Component {
   render () {
     const title = 'Indecision'
     const subtitle = 'Put your life in the hands of a computer'
-    const options = [ 'option one', 'option two' ]
+    const options = [ 'option one', 'option two', 'option three' ]
 
     return (
       <div>
@@ -27,19 +38,31 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+  handlePick (e) {
+    console.log(e)
+  }
+
   render () {
     return (
-      <button>What should I do?</button>
+      <button onClick={this.handlePick}>What should I do?</button>
     )
   }
 }
 
 class Options extends React.Component {
+  handleRemoveAll () {
+    console.log(this.props.options)
+  }
+
   render () {
     return (
       <div>
-        { this.props.options.length }
-        <Option />
+        <button onClick={this.handleRemoveAll}>Remove all</button>
+        <ol>
+          {
+            this.props.options.map((option) => <Option key={option} optionText={option} />)
+          }
+        </ol>
       </div>
     )
   }
@@ -48,18 +71,31 @@ class Options extends React.Component {
 class Option extends React.Component {
   render () {
     return (
-      <div>
-        Option component here
-      </div>
+      <li>
+        { this.props.optionText }
+      </li>
     )
   }
 }
 
 class AddOption extends React.Component {
+  handleAddOption (e) {
+    e.preventDefault()
+
+    const option = e.target.elements.option.value
+
+    if (option) {
+      console.log(option)
+    }
+  }
+
   render () {
     return (
       <div>
-        AddOption component here
+        <form onSubmit={this.handleAddOption}>
+          <input type='text' name='option' />
+          <button>Add Option</button>
+        </form>
       </div>
     )
   }
